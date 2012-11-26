@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>charRoom</title>
+    <meta charset=utf8></meta>
+    <link rel="stylesheet" type="text/css" href="{{ static_url("css/chat.css")}}" media="all">
+    <script type="text/javascript" src="{{ static_url("script/jquery.min.js") }}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="well" id="messageArea">
+        
+    </div>
+    <div class="well fix-bottom" id="sendArea">
+        <textarea name="content" id="sendContent" cols="30"></textarea>
+    </div>
+</div>
+<script type="text/javascript">
+    function resizeMsgArea(){
+            var msgArea = $("#messageArea");
+            msgArea.height($(window).height()-150);
+            msgArea.scrollTop(msgArea[0].scrollHeight);
+        }
+    function addMsg(content,type){
+        var klass;
+        if(type === "m")
+            klass = "myMsg";
+        else if(type === "o")
+            klass = "otherMsg";
+        else
+            klass = "";
+        $('<div class="wrap"><div class="message '+ klass +'">'+ content +'</div></div>').appendTo($("#messageArea"));
+    }
+
+    function getMessage(evt){
+        var result = eval("(" + evt.data + ")");
+        console.log(result);
+        if (result.type === "system") {
+            $("<div class='message'>"+ result.content.body +"</div>").appendTo($("#messageArea"));
+        }else if(result.type === "message"){
+            addMsg(unescape(result.content.body), result.content.type);
+        }else {
+
+        }
+    }
+    $(function(){
+        resizeMsgArea();
+        var socket = new WebSocket("ws://" + window.location.host + "/message");
+        socket.onmessage = getMessage;
+        $(window).bind("resize", resizeMsgArea);   
+        $("#sendContent").bind("keydown", function(e){
+            if(e.ctrlKey && e.keyCode == 13){
+                var content = $("#sendContent").val();
+                if(String.prototype.trim.call(content) == ""){
+                    return;
+                }
+                addMsg(content, "m");
+                socket.send('{"type":"message","content":"'+ escape(content) +'"}');
+                $("#sendContent").val("");
+            }
+        });
+    });
+</script>
+</body>
+</html>

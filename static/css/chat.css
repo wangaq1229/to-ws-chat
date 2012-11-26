@@ -1,0 +1,82 @@
+body{
+    overflow-y:hidden;
+}
+textarea {
+    margin: 10px;
+    resize:none;
+    height: 80px;
+    width: 97%;
+    font-size: 16px;
+    color:hsla(38, 46%, 54%, 1)
+}
+.well{
+   background-color: whiteSmoke;
+   border: 1px solid #E3E3E3; 
+   border-radius: 4px;
+   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+   padding: 10px;
+}
+
+.container{
+    width: 940px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.fix-bottom{
+    bottom: 0px;
+    top: auto;
+}
+
+.wrap{
+    padding: 6px 3px;
+}
+
+#messageArea{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#sendArea{
+    height: 100px;
+    position: relative;
+}
+.message{
+    min-width: 60px;
+    min-height: 30px;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 30px;
+    position: relative;
+}
+.otherMsg{
+    background:hsla(103, 44%, 89%, 1);
+    color: hsla(121, 32%, 40%, 1);
+    display:inline-block;
+}
+.myMsg{
+    background:hsla(50, 81%, 94%, 1);
+    color: hsla(38, 46%, 54%, 1);
+    display:inline-block;
+}
+.otherMsg:before{
+    content: "";
+    position: absolute;
+    top: -10px;
+    left:5px;
+    border: 6px solid transparent;
+    border-bottom-color: hsla(103, 44%, 89%, 1);
+}
+
+.myMsg:after{
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right:5px;
+    border: 6px solid transparent;
+    border-top-color: hsla(50, 81%, 94%, 1);
+}
