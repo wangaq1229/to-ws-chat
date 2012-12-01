@@ -1,4 +1,4 @@
 to-ws-chat
 ==========
 
-tornado-websocket-chatroom   with chrome plugin
+tornado-websocket-chatroom   websocket and long poll
